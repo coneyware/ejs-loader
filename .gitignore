@@ -1,3 +1,10 @@
+#
+node_modules
+
+# Develop
+# docker-compose.yml
+# .devcontainer
+
 # Logs
 logs
 *.log
