@@ -7,9 +7,13 @@
 const ejs = require("ejs");
 const path = require("path");
 
-const loaderUtils = require("loader-utils");
-
 const cwd = process.cwd();
+
+const getOptions = (ctx) => {
+	return ctx.getOptions
+		? ctx.getOptions() // webpack 5
+		: require("loader-utils").getOptions(ctx); // webpack 4
+};
 
 const mainAsync = async(content, resourcePath, options, callback) => {
 	process.chdir(path.dirname(resourcePath));
@@ -26,14 +30,15 @@ const mainAsync = async(content, resourcePath, options, callback) => {
 
 const mainSync = (content, resourcePath, options) => {
 	process.chdir(path.dirname(resourcePath));
-	const ret = ejs.render(content, options?.ejsData, options.renderOptions);
+	let ret = null;
+	ret = ejs.render(content, options?.ejsData, options.renderOptions);
 	process.chdir(options.cwd ?? cwd);
 	return ret;
 };
 
 module.exports = function ejsLoader(content, map, meta) {
 	let ret = null;
-	const options = loaderUtils.getOptions(this);
+	const options = getOptions(this);
 	if (typeof options.renderOptions === "undefined") {
 		options.renderOptions = {};
 	}

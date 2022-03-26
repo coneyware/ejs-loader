@@ -1,5 +1,6 @@
 #
 node_modules
+/test/*bundle.js
 
 # Develop
 # docker-compose.yml
