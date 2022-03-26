@@ -2,8 +2,8 @@
 node_modules
 
 # Develop
-# docker-compose.yml
-# .devcontainer
+docker-compose.yml
+.devcontainer
 
 # Logs
 logs
