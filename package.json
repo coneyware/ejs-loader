@@ -1,0 +1,32 @@
+{
+  "name": "ejs-loader",
+  "version": "0.0.1",
+  "description": "",
+  "main": "ejs-loader.cjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coneyware/ejs-loader.git"
+  },
+  "keywords": [
+    "ejs",
+    "webpack",
+    "loader"
+  ],
+  "author": "coneyware",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/coneyware/ejs-loader/issues"
+  },
+  "homepage": "https://github.com/coneyware/ejs-loader#readme",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "loader-utils": "^3.2.0"
+  },
+  "devDependencies": {
+    "webpack": "^5.70.0",
+    "webpack-cli": "^4.9.2"
+  }
+}
