@@ -1,5 +1,5 @@
 {
-  "name": "ejs-loader",
+  "name": "@coneyware/ejs-loader",
   "version": "1.0.0",
   "description": "",
   "main": "ejs-loader.cjs",
