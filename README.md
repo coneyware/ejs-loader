@@ -1,4 +1,4 @@
-# ejs-loader for webpack 4&5
+# ejs-loader for webpack 4.x and webpack 5.x
 webpack4とwebpack5に対応したejs-loader
 
 
@@ -9,10 +9,11 @@ webpack4とwebpack5に対応したejs-loader
 	+ [同期（HTML出力）](test/webpack.config.sync.mjs)
 
 ### options設定
+see [ejs](https://github.com/mde/ejs)
 * ejsData
-	+ ejs.render()の第二引数
+	+ ejs.render(x, o, x)の第二引数
 * renderOptions
-	+ ejs.render()の第三引数
+	+ ejs.render(x, x, o)の第三引数
 	+ **filenameはloaderContext.resourePathを内部で設定**
 
 ```
