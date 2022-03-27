@@ -1,4 +1,5 @@
 
+import HtmlWebpackPlugin from "html-webpack-plugin";
 import path from "path";
 import {fileURLToPath} from "url";
 
@@ -41,6 +42,12 @@ export default () => {
 				}
 			]
 		}
+		, "plugins": [
+			new HtmlWebpackPlugin({
+				"filename": "template_sync.html"
+				, "template": "template_sync.ejs"
+			})
+		]
 	};
 	return ret;
 };
