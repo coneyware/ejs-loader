@@ -1,6 +1,17 @@
 # ejs-loader for webpack 4.x and webpack 5.x
 webpack4とwebpack5に対応したejs-loader
 
+どちらでも使用できるのでdependenciesの設定をしていない
+
+## webpack 4.xで使用するとき
+dependencies
+* webpack@4
+* html-loader@1
+
+## webpack 5.xで使用するとき
+dependencies
+* webpack@5
+* html-loader@3
 
 ## webpack.configの書き方
 * [commonJS形式](test/webpack.config.sync.cjs)
