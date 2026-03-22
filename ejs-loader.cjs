@@ -5,9 +5,6 @@
  */
 // import ejs from "ejs";
 const ejs = require("ejs");
-const path = require("path");
-
-const cwd = process.cwd();
 
 const getOptions = (ctx) => {
 	return ctx.getOptions
@@ -15,42 +12,55 @@ const getOptions = (ctx) => {
 		: require("loader-utils").getOptions(ctx); // webpack 4
 };
 
-const mainAsync = async(content, resourcePath, options, callback) => {
-	process.chdir(path.dirname(resourcePath));
-	let ret = null;
-	try {
-		ret = await ejs.render(content, options?.ejsData, options.renderOptions);
-	} catch (err) {
-		callback(err, null);
-	} finally {
-		process.chdir(options.cwd ?? cwd);
-	}
-	callback(null, ret);
+const normalizeOptions = (ctx, options) => {
+	const renderOptions = {
+		...(options?.renderOptions ?? {})
+	};
+	const userIncluder = renderOptions.includer;
+	renderOptions.filename = ctx.resourcePath;
+	renderOptions.includer = (originalPath, parsedPath) => {
+		if (parsedPath) {
+			ctx.addDependency(parsedPath);
+		}
+		if (typeof userIncluder === "function") {
+			const userResult = userIncluder(originalPath, parsedPath);
+			if (userResult?.filename) {
+				ctx.addDependency(userResult.filename);
+			}
+			return userResult;
+		}
+		return parsedPath ? {"filename": parsedPath} : undefined;
+	};
+	return {
+		"ejsData": options?.ejsData
+		, renderOptions
+	};
 };
 
-const mainSync = (content, resourcePath, options) => {
-	process.chdir(path.dirname(resourcePath));
-	let ret = null;
-	ret = ejs.render(content, options?.ejsData, options.renderOptions);
-	process.chdir(options.cwd ?? cwd);
-	return ret;
+const mainAsync = async(content, options) => {
+	return ejs.render(content, options?.ejsData, options.renderOptions);
+};
+
+const mainSync = (content, options) => {
+	return ejs.render(content, options?.ejsData, options.renderOptions);
 };
 
 module.exports = function ejsLoader(content, map, meta) {
+	this.cacheable?.(true);
 	let ret = null;
-	const options = getOptions(this);
-	if (typeof options.renderOptions === "undefined") {
-		options.renderOptions = {};
-	}
-	options.renderOptions.filename = path.basename(this.resourcePath);
+	const options = normalizeOptions(this, getOptions(this));
 	if (options?.renderOptions?.async) {
 		// https://webpack.js.org/api/loaders/#asynchronous-loaders
 		const webpackCallback = this.async();
-		mainAsync(content, this.resourcePath, options, (err, result) => {
-			webpackCallback(err, result, map, meta);
-		});
+		mainAsync(content, options)
+			.then((result) => {
+				webpackCallback(null, result, map, meta);
+			})
+			.catch((err) => {
+				webpackCallback(err, null, map, meta);
+			});
 	} else {
-		ret = mainSync(content, this.resourcePath, options);
+		ret = mainSync(content, options);
 	}
 	return ret;
 };
