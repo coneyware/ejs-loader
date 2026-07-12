@@ -1,0 +1,27 @@
+{
+  "model": "opusplan",
+  "permissions": {
+    "allow": [
+      "Bash",
+      "Write",
+      "Edit",
+      "mcp__filesystem__directory_tree",
+      "mcp__filesystem__create_directory",
+      "mcp__filesystem__write_file",
+      "Read(//c/proj/**)",
+      "Read(//tmp/**)"
+    ],
+    "additionalDirectories": [
+      "/ejs-loader/backend/src/views/mock",
+      "/tmp"
+    ]
+  },
+  "worktree": {
+    "bgIsolation": "none"
+  },
+  "env": {
+    "CLAUDE_CODE_DISABLE_1M_CONTEXT": "1",
+    "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "75",
+    "ANTHROPIC_BASE_URL": "http://host.docker.internal:8787"
+  }
+}

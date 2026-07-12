@@ -3,9 +3,10 @@ node_modules
 /test/*bundle.js
 /test/*.html
 
-# Develop
-docker-compose.yml
-.devcontainer
+# Developだけ有効
+# compose.yml
+# .devcontainer
+# .claude
 
 # Logs
 logs
