@@ -3,9 +3,10 @@ node_modules
 /test/*bundle.js
 /test/*.html
 
-# Develop
-docker-compose.yml
-.devcontainer
+# Developだけ有効
+# compose.yml
+# .devcontainer
+# .claude
 
 # Logs
 logs
@@ -111,3 +112,9 @@ dist
 
 # TernJS port file
 .tern-port
+
+# npm lock file (ライブラリのため追跡しない)
+package-lock.json
+
+# for Mac
+.DS_Store
