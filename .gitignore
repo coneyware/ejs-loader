@@ -118,3 +118,7 @@ package-lock.json
 
 # for Mac
 .DS_Store
+
+# 個人用のローカル設定（各自の環境に依存するため追跡しない）
+.claude/settings.local.json
+.claude/rules/local.md
