@@ -3,10 +3,10 @@ node_modules
 /test/*bundle.js
 /test/*.html
 
-# Developだけ有効
-# compose.yml
-# .devcontainer
-# .claude
+# 開発用（developブランチでのみコメントアウトして追跡する）
+compose.yml
+.devcontainer
+.claude
 
 # Logs
 logs
