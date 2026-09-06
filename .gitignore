@@ -112,3 +112,9 @@ dist
 
 # TernJS port file
 .tern-port
+
+# npm lock file (ライブラリのため追跡しない)
+package-lock.json
+
+# for Mac
+.DS_Store
